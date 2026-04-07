@@ -1,2 +1,23 @@
 [phases.setup]
-nixPkgs = ["nodejs_18"]
+nixPkgs = [
+  "nodejs_18",
+  "nss",
+  "nspr",
+  "atk",
+  "at-spi2-atk",
+  "xorg.libX11",
+  "xorg.libXcomposite",
+  "xorg.libXdamage",
+  "xorg.libXext",
+  "xorg.libXfixes",
+  "xorg.libXrandr",
+  "xorg.libxcb",
+  "libdrm",
+  "libxkbcommon",
+  "mesa",
+  "expat",
+  "glib",
+  "dbus",
+  "cups",
+  "alsa-lib"
+]
