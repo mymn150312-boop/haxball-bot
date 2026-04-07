@@ -1,28 +1,20 @@
-const puppeteer = require('puppeteer');
-const fs = require('fs');
+const haxball = require('node-haxball');
 
-async function startRoom(scriptPath) {
-  try {
-    const browser = await puppeteer.launch({
-      headless: true,
-      executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || '/usr/bin/google-chrome-stable',
-      args: [
-        '--no-sandbox',
-        '--disable-setuid-sandbox',
-        '--disable-dev-shm-usage',
-        '--disable-gpu'
-      ]
-    });
-    const page = await browser.newPage();
-    page.on('console', msg => console.log('[' + scriptPath + ']', msg.text()));
-    const script = fs.readFileSync(scriptPath, 'utf8');
-    await page.goto('https://www.haxball.com/headless', { waitUntil: 'networkidle2', timeout: 60000 });
-    await page.evaluate(script);
-    console.log(scriptPath + ' started!');
-  } catch (err) {
-    console.error(scriptPath + ' error:', err.message);
-  }
+async function startRoom(roomName, token) {
+  const HBInit = await haxball();
+  const room = HBInit.Room({
+    roomName: roomName,
+    maxPlayers: 16,
+    public: true,
+    token: token
+  });
+
+  room.onPlayerJoin = (player) => {
+    console.log("[" + roomName + "] " + player.name + " joined!");
+  };
+
+  console.log(roomName + " started!");
 }
 
-startRoom('./room1.js');
-setTimeout(() => startRoom('./room2.js'), 5000);
+startRoom("Room 1", "thr1.AAAAAGnU9HuzkX0CdyImKQ.sMgiRdvM8lM");
+setTimeout(() => startRoom("Room 2", "thr1.AAAAAGnU9MEaTxoGVcz_lA.uv6C7IrFzgA"), 5000);
