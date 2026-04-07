@@ -1,12 +1,14 @@
-FROM node:22-slim
+FROM node:22-bullseye-slim
 
 RUN apt-get update && apt-get install -y \
     chromium \
     libnss3 \
+    libnspr4 \
     libatk1.0-0 \
     libatk-bridge2.0-0 \
     libcups2 \
     libdrm2 \
+    libdbus-1-3 \
     libxkbcommon0 \
     libxcomposite1 \
     libxdamage1 \
@@ -14,6 +16,10 @@ RUN apt-get update && apt-get install -y \
     libxrandr2 \
     libgbm1 \
     libasound2 \
+    libpango-1.0-0 \
+    libcairo2 \
+    libxshmfence1 \
+    fonts-liberation \
     --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
