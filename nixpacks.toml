@@ -1,10 +1,13 @@
 [phases.setup]
 nixPkgs = [
   "nodejs_18",
+  "chromium",
   "nss",
   "nspr",
   "atk",
-  "at-spi2-atk",
+  "cups",
+  "dbus",
+  "glib",
   "xorg.libX11",
   "xorg.libXcomposite",
   "xorg.libXdamage",
@@ -14,10 +17,8 @@ nixPkgs = [
   "xorg.libxcb",
   "libdrm",
   "libxkbcommon",
-  "mesa",
-  "expat",
-  "glib",
-  "dbus",
-  "cups",
-  "alsa-lib"
+  "mesa"
 ]
+
+[start]
+cmd = "node index.js"
