@@ -1,6 +1,6 @@
 const puppeteer = require('puppeteer');
 
-async function startRoom(roomName, token) {
+async function startRoom(scriptContent) {
   const browser = await puppeteer.launch({
     headless: true,
     args: [
@@ -11,16 +11,17 @@ async function startRoom(roomName, token) {
   });
   const page = await browser.newPage();
   await page.goto('https://www.haxball.com/headless');
-  await page.evaluate((name, tok) => {
-    window.HBInit({
-      roomName: name,
-      maxPlayers: 10,
-      public: true,
-      token: tok
-    });
-  }, roomName, token);
-  console.log(`${roomName} started!`);
+  await page.evaluate(scriptContent);
+  console.log("Room started!");
 }
 
-startRoom("Phong 1 VN", "thr1.AAAAAGnUlc4chqABzzuDUg.gREvl4sddr4");
-startRoom("Phong 2 VN", "thr1.AAAAAGnUmVlpOxhk5RLtQw.2EkqBv1vD9s");
+const script1 = `
+${require('fs').readFileSync('./room1.js', 'utf8')}
+`;
+
+const script2 = `
+${require('fs').readFileSync('./room2.js', 'utf8')}
+`;
+
+startRoom(script1);
+setTimeout(() => startRoom(script2), 3000);
