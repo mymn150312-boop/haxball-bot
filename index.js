@@ -9,8 +9,7 @@ async function startRoom(scriptPath) {
         '--no-sandbox',
         '--disable-setuid-sandbox',
         '--disable-dev-shm-usage',
-        '--disable-gpu',
-        '--window-size=1280,720'
+        '--disable-gpu'
       ]
     });
     const page = await browser.newPage();
