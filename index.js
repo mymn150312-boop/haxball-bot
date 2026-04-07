@@ -6,7 +6,8 @@ async function startRoom(scriptPath) {
   const browser = await puppeteer.launch({
     args: chromium.args,
     executablePath: await chromium.executablePath(),
-    headless: true
+    headless: chromium.headless,  // ← đổi từ true sang này
+    defaultViewport: chromium.defaultViewport  // ← thêm dòng này
   });
   const page = await browser.newPage();
   const script = fs.readFileSync(scriptPath, 'utf8');
