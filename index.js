@@ -1,19 +1,29 @@
-const haxball = require('node-haxball');
+const HBInit = require('node-haxball');
 
-function startRoom(roomName, token) {
-  haxball(function(HBInit) {
-    const room = HBInit.Room({
-      roomName: roomName,
-      maxPlayers: 16,
-      public: true,
-      token: token
-    });
-    room.onPlayerJoin = function(player) {
-      console.log("[" + roomName + "] " + player.name + " joined!");
-    };
-    console.log(roomName + " started!");
+const room1 = HBInit({
+  roomName: "Room 1",
+  maxPlayers: 16,
+  public: true,
+  token: "thr1.AAAAAGnV3PgovBTgJFW0lg.wYVHQhpE_os"
+});
+
+room1.onPlayerJoin = function(player) {
+  console.log("Room 1: " + player.name + " joined!");
+};
+
+console.log("Room 1 started!");
+
+setTimeout(function() {
+  const room2 = HBInit({
+    roomName: "Room 2",
+    maxPlayers: 16,
+    public: true,
+    token: "thr1.AAAAAGnV3UNwtLW7fRTD9g.BVvbDRMG090"
   });
-}
 
-startRoom("Room 1", "thr1.AAAAAGnV3PgovBTgJFW0lg.wYVHQhpE_os");
-setTimeout(() => startRoom("Room 2", "thr1.AAAAAGnV3UNwtLW7fRTD9g.BVvbDRMG090"), 5000);
+  room2.onPlayerJoin = function(player) {
+    console.log("Room 2: " + player.name + " joined!");
+  };
+
+  console.log("Room 2 started!");
+}, 5000);
