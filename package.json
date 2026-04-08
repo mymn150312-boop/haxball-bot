@@ -5,6 +5,7 @@
     "start": "node index.js"
   },
   "dependencies": {
+    "node-haxball": "latest",
     "puppeteer": "^24.15.0"
   }
 }
