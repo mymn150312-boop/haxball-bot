@@ -8,13 +8,11 @@ async function startRoom(roomName, token) {
     public: true,
     token: token
   });
-
   room.onPlayerJoin = (player) => {
     console.log("[" + roomName + "] " + player.name + " joined!");
   };
-
   console.log(roomName + " started!");
 }
 
-startRoom("Room 1", "thr1.AAAAAGnU9HuzkX0CdyImKQ.sMgiRdvM8lM");
-setTimeout(() => startRoom("Room 2", "thr1.AAAAAGnU9MEaTxoGVcz_lA.uv6C7IrFzgA"), 5000);
+startRoom("Room 1", "thr1.AAAAAGnV3PgovBTgJFW0lg.wYVHQhpE_os");
+setTimeout(() => startRoom("Room 2", "thr1.AAAAAGnV3UNwtLW7fRTD9g.BVvbDRMG090"), 5000);
