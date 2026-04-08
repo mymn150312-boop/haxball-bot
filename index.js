@@ -4,7 +4,7 @@ const room1 = HBInit({
   roomName: "Room 1",
   maxPlayers: 16,
   public: true,
-  token: "thr1.AAAAAGnV3PgovBTgJFW0lg.wYVHQhpE_os"
+  token: "thr1.AAAAAGnV4KtbnKxVggPpqA.v4s2His-9RI"
 });
 
 room1.onPlayerJoin = function(player) {
@@ -18,7 +18,7 @@ setTimeout(function() {
     roomName: "Room 2",
     maxPlayers: 16,
     public: true,
-    token: "thr1.AAAAAGnV3UNwtLW7fRTD9g.BVvbDRMG090"
+    token: "thr1.AAAAAGnV4Q3luUaTl3U3hw.1dYQW52mtxk"
   });
 
   room2.onPlayerJoin = function(player) {
