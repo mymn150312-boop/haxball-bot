@@ -1,29 +1,33 @@
 const HBInit = require('node-haxball');
+const puppeteer = require('puppeteer');
 
-const room1 = HBInit({
-  roomName: "Room 1",
-  maxPlayers: 16,
-  public: true,
-  token: "thr1.AAAAAGnV4KtbnKxVggPpqA.v4s2His-9RI"
-});
+async function getToken() {
+  const browser = await puppeteer.launch({
+    executablePath: '/usr/bin/chromium',
+    args: ['--no-sandbox', '--disable-setuid-sandbox']
+  });
+  const page = await browser.newPage();
+  await page.goto('https://www.haxball.com/headlesstoken');
+  const token = await page.waitForSelector('.token', { timeout: 30000 });
+  const tokenText = await token.evaluate(el => el.textContent);
+  await browser.close();
+  return tokenText.trim();
+}
 
-room1.onPlayerJoin = function(player) {
-  console.log("Room 1: " + player.name + " joined!");
-};
-
-console.log("Room 1 started!");
-
-setTimeout(function() {
-  const room2 = HBInit({
-    roomName: "Room 2",
+async function startRoom(roomName) {
+  const token = await getToken();
+  console.log(roomName + " got token: " + token);
+  const room = HBInit({
+    roomName: roomName,
     maxPlayers: 16,
     public: true,
-    token: "thr1.AAAAAGnV4Q3luUaTl3U3hw.1dYQW52mtxk"
+    token: token
   });
-
-  room2.onPlayerJoin = function(player) {
-    console.log("Room 2: " + player.name + " joined!");
+  room.onPlayerJoin = function(player) {
+    console.log(roomName + ": " + player.name + " joined!");
   };
+  console.log(roomName + " started!");
+}
 
-  console.log("Room 2 started!");
-}, 5000);
+startRoom("Room 1");
+setTimeout(() => startRoom("Room 2"), 10000);
